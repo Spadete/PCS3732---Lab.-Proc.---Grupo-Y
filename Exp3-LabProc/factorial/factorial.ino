@@ -46,6 +46,8 @@ const char HTML_INTERFACE[] PROGMEM = R"rawliteral(
         <select id="operation">
             <option value="addition">+</option>
             <option value="subtraction">-</option>
+            <option value="multiplication">*</option>
+            <option value="factorial">!</option>
         </select>
 
         <label>Operand B:</label>
@@ -122,6 +124,24 @@ void handleCalculation() {
     result = op1 - op2;
     if ((op1 > 0 && op2 < 0 && result < 0) || (op1 < 0 && op2 > 0 && result >= 0)) {
       overflow = 1;
+    }
+  } else if (operation == "multiplication") {
+    result = op1 * op2;
+    if (result < -8 || result > 7) {
+      overflow = 1;
+    }
+  } else if (operation == "factorial") {
+    if (op1 < 0) {
+      overflow = 1;
+      result = 0;
+    } else {
+      result = 1;
+      for (int i = 1; i <= op1; i++) {
+        result *= i;
+      }
+      if (result < -8 || result > 7) {
+        overflow = 1;
+      }
     }
   }
 
