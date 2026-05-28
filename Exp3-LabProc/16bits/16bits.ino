@@ -92,11 +92,15 @@ void handleCalculation() {
       overflow = 1;
     }
   } else if (operation == "multiplication") {
+    uint32_t t_inicial = micros();
     result = op1 * op2;
     if (result < -32768 || result > 32767) {
       overflow = 1;
     }
+    uint32_t t_final = micros();
+    Serial.println(t_final - t_inicial);
   } else if (operation == "factorial") {
+    uint32_t t_inicial = micros();
     if (op1 < 0) {
       overflow = 1;
       result = 0;
@@ -112,6 +116,8 @@ void handleCalculation() {
         overflow = 1;
       }
     }
+    uint32_t t_final = micros();
+    Serial.println(t_final - t_inicial);
   }
 
   uint16_t value16Bits = (uint16_t)(result & 0xFFFF);
@@ -135,6 +141,7 @@ void handleCalculation() {
 }
 
 void setup() {
+  Serial.begin(9600);
   for (int i = 0; i < 4; i++) {
     pinMode(ledPins[i], OUTPUT);
     digitalWrite(ledPins[i], LOW);
