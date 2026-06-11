@@ -5,7 +5,7 @@ const int ledPin = 4;
 const int pwmChannel = 0;
 const int pwmResolution = 8;
 
-const char* ssid = "Controle LED PWM DO ANREZAO";
+const char* ssid = "Controle LED PWM DO ANREZAO 4";
 
 WebServer server(80);
 
