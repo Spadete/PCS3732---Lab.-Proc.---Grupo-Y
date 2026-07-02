@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "Keypad.hpp"
 
 #define LCD_ADDR 0x27
 #define LCD_CHR 1
@@ -52,45 +53,24 @@ void lcd_clear() {
     delay(2);
 }
 
-int rows[4] = {16, 20, 21, 26};
-int cols[4] = {19, 13, 6, 5};
+const byte ROWS = 4;
+const byte COLS = 4;
 
-char keys[4][4] = {
-    {'1', '2', '3', 'A'},
-    {'4', '5', '6', 'B'},
-    {'7', '8', '9', 'C'},
-    {'*', '0', '#', 'D'}
+char keys[ROWS][COLS] = {
+  {'1','2','3','A'},
+  {'4','5','6','B'},
+  {'7','8','9','C'},
+  {'*','0','#','D'}
 };
 
-void setup_keypad() {
-    for (int i = 0; i < 4; i++) {
-        pinMode(rows[i], OUTPUT);
-        digitalWrite(rows[i], HIGH);
-        pinMode(cols[i], INPUT);
-        pullUpDnControl(cols[i], PUD_UP);
-    }
-}
+byte rowPins[ROWS] = {16, 20, 21, 26};
+byte colPins[COLS] = {19, 13, 6, 5};
 
-char get_key() {
-    for (int r = 0; r < 4; r++) {
-        digitalWrite(rows[r], LOW);
-        for (int c = 0; c < 4; c++) {
-            if (digitalRead(cols[c]) == LOW) {
-                delay(50);
-                while (digitalRead(cols[c]) == LOW);
-                digitalWrite(rows[r], HIGH);
-                return keys[r][c];
-            }
-        }
-        digitalWrite(rows[r], HIGH);
-    }
-    return '\0';
-}
+Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
 int main() {
     wiringPiSetupGpio();
     lcd_init();
-    setup_keypad();
 
     char key;
     char buffer[16];
@@ -98,13 +78,15 @@ int main() {
     char op = '\0';
     int state = 0;
 
+    keypad.setDebounceTime(50);
+
     lcd_print("Calculadora");
     delay(2000);
     lcd_clear();
 
     while (1) {
-        key = get_key();
-        if (key != '\0') {
+        key = keypad.getKey();
+        if (key) {
             if (key >= '0' && key <= '9') {
                 if (state == 0 || state == 1) {
                     num1 = num1 * 10 + (key - '0');
