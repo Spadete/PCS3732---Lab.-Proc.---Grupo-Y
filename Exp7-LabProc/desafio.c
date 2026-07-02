@@ -52,8 +52,8 @@ void lcd_clear() {
     delay(2);
 }
 
-int rows[] = {0, 2, 3, 12};
-int cols[] = {13, 14, 21, 22};
+byte rows[ROWS] = {16, 20, 21, 26}; //define the row pins for the keypad
+byte cols[COLS] = {19, 13, 6, 5};   //define the column pins for the keypad
 
 char keys[4][4] = {
     {'1', '2', '3', 'A'},

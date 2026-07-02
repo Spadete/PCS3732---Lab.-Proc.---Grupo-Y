@@ -39,7 +39,7 @@ int main() {
     lcd_byte(0x01, LCD_CMD);
     delayMicroseconds(500);
 
-    char *text = "3+3=6";
+    char *text = "O LCD funciona";
     while (*text) {
         lcd_byte(*(text++), LCD_CHR);
     }
