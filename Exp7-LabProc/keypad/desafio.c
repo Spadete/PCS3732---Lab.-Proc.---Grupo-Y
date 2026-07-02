@@ -76,6 +76,7 @@ int main() {
     char buffer[16];
     int num1 = 0, num2 = 0, result = 0;
     char op = '\0';
+    char display_op = '\0';
     int state = 0;
 
     keypad.setDebounceTime(50);
@@ -98,15 +99,21 @@ int main() {
                     num2 = num2 * 10 + (key - '0');
                     state = 3;
                     lcd_clear();
-                    sprintf(buffer, "%d %c %d", num1, op, num2);
+                    sprintf(buffer, "%d %c %d", num1, display_op, num2);
                     lcd_print(buffer);
                 }
             } else if (key == 'A' || key == 'B' || key == 'C' || key == 'D') {
                 if (state == 1) {
                     op = key;
+                    
+                    if (op == 'A') display_op = '+';
+                    else if (op == 'B') display_op = '-';
+                    else if (op == 'C') display_op = '*';
+                    else if (op == 'D') display_op = '/';
+                    
                     state = 2;
                     lcd_clear();
-                    sprintf(buffer, "%d %c", num1, op);
+                    sprintf(buffer, "%d %c", num1, display_op);
                     lcd_print(buffer);
                 }
             } else if (key == '#') {
@@ -134,6 +141,7 @@ int main() {
                 num1 = 0;
                 num2 = 0;
                 op = '\0';
+                display_op = '\0';
                 lcd_clear();
             }
         }
