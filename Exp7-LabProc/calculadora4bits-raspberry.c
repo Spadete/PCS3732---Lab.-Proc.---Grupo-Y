@@ -13,10 +13,6 @@ int multiplicacao(int a, int b) { return a * b; }
 
 // Tratamento de Divisão por Zero
 float divisao(int a, int b) {
-    if (b == 0) {
-        printf("Erro: Tentativa de divisao por zero.\n");
-        return 0; // Ou outro código de erro padronizado
-    }
     return (float)a / (float)b;
 }
 
