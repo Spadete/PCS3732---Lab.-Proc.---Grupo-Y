@@ -52,8 +52,8 @@ void lcd_clear() {
     delay(2);
 }
 
-byte rows[ROWS] = {16, 20, 21, 26}; //define the row pins for the keypad
-byte cols[COLS] = {19, 13, 6, 5};   //define the column pins for the keypad
+int rows[4] = {16, 20, 21, 26};
+int cols[4] = {19, 13, 6, 5};
 
 char keys[4][4] = {
     {'1', '2', '3', 'A'},
@@ -88,7 +88,7 @@ char get_key() {
 }
 
 int main() {
-    wiringPiSetup();
+    wiringPiSetupGpio();
     lcd_init();
     setup_keypad();
 
