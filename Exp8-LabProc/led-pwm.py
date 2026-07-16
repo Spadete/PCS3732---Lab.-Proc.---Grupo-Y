@@ -11,7 +11,7 @@ pwm = GPIO.PWM(LED_PIN, 1)
 try:
     pwm.start(50)
 
-    frequencies = [2, 20, 200, 2000]
+    frequencies = [2, 20, 50, 100, 500]
 
     for frequency in frequencies:
         print(f"Testando frequência de {frequency} Hz")
