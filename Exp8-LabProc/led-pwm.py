@@ -14,7 +14,7 @@ try:
     frequencies = [2, 20, 50, 100, 500]
 
     for frequency in frequencies:
-        print(f"Testando frequência de {frequency} Hz")
+        print(f"Testando freq {frequency} Hz")
         pwm.ChangeFrequency(frequency)
         time.sleep(5)
 
@@ -22,4 +22,4 @@ finally:
     pwm.stop()
     GPIO.output(LED_PIN, GPIO.LOW)
     GPIO.cleanup()
-    print("Teste finalizado.")
+    print("Funfou.")
