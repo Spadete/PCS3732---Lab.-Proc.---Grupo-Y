@@ -9,7 +9,7 @@ GPIO.setup(BUZZER_PIN, GPIO.OUT)
 buzzer = GPIO.PWM(BUZZER_PIN, 440)
 
 try:
-    buzzer.start(50)
+    buzzer.start(5)
 
     notes = [
         (130, "C"),
