@@ -37,7 +37,7 @@ GPIO.add_event_detect(BTN_DOWN, GPIO.FALLING, callback=diminuir_bpm, bouncetime=
 
 servo = GPIO.PWM(SERVO_PIN, 50)
 buzzer = GPIO.PWM(BUZZER_PIN, 880)
-
+    
 try:
     servo.start(5)
     buzzer.start(0)
