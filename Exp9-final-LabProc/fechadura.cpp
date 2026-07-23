@@ -224,7 +224,14 @@ void checkDoorState(float dist)
         }
     } else if (currentState == ABERTA) {
         if (doorOpen) {
-            doorWasOpened = true;
+            if (!doorWasOpened) {
+                doorWasOpened = true;
+                lcdClear(lcdHandle);
+                lcdPosition(lcdHandle, 0, 0);
+                lcdPrintf(lcdHandle, "Porta aberta");
+                lcdPosition(lcdHandle, 0, 1);
+                lcdPrintf(lcdHandle, "Aguardando fech.");
+            }
         } else if (!doorOpen && doorWasOpened) {
             currentState = TRANCADA;
             doorWasOpened = false;
