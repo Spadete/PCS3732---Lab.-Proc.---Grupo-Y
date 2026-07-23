@@ -14,7 +14,8 @@ all: \
 	keypad-test \
 	keypad-lcd-test \
 	buzzer-test \
-	sensor-test
+	sensor-test \
+	fechadura
 
 lcd-test: lcd-test.cpp
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) \
@@ -51,12 +52,20 @@ sensor-test: sensor-test.cpp
 	$(LDFLAGS) \
 	$(WIRINGPI_LIBS)
 
+fechadura: fechadura.cpp $(KEYPAD_FILES)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) \
+	fechadura.cpp $(KEYPAD_FILES) \
+	-o fechadura \
+	$(LDFLAGS) \
+	$(LCD_LIBS)
+
 clean:
 	rm -f \
 	lcd-test \
 	keypad-test \
 	keypad-lcd-test \
 	buzzer-test \
-	sensor-test
+	sensor-test \
+	fechadura
 
 .PHONY: all clean
