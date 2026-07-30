@@ -54,6 +54,7 @@ while True:
                     fingers1.append(1 if 160 <= ang <= 180 else 0)
                 msg1 = f"P1:{fingers1}"
                 sock.sendto(msg1.encode('utf-8'), (UDP_IP, UDP_PORT))
+                print(msg1)
 
         if success2:
             img_rgb2 = cv2.cvtColor(cv2.flip(img2, 1), cv2.COLOR_BGR2RGB)
@@ -68,6 +69,7 @@ while True:
                     fingers2.append(1 if 160 <= ang <= 180 else 0)
                 msg2 = f"P2:{fingers2}"
                 sock.sendto(msg2.encode('utf-8'), (UDP_IP, UDP_PORT))
+                print(msg2)
 
         last_send_time = current_time
 
